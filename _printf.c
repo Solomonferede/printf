@@ -1,53 +1,50 @@
-#include <stdlib.h>
-#include <stdarg.h>
 #include "main.h"
+
 /**
- * _printf - print anything
- * @format: arguments
- * Return: number of characters printed
+ * _printf - prints formatted data to stdout
+ * @format: string that contains the format to print
+ * Return: number of characters written
  */
-int _printf(const char *format, ...)
+int _printf(char *format, ...)
 {
-	va_list arguments;
-	const char *p;
-	int num = 0;
+	int written = 0, (*structype)(char *, va_list);
+	char q[3];
+	va_list pa;
 
 	if (format == NULL)
 		return (-1);
-	va_start(arguments, format);
-	for (p = format; *p; p++)
+	q[2] = '\0';
+	va_start(pa, format);
+	_putchar(-1);
+	while (format[0])
 	{
-		if (*p == '%' && *p + 1 == '%')
+		if (format[0] == '%')
 		{
-			_putchar(*p), num++;
-			continue;
-		}
-		else if (*p == '%' && *p + 1 != '%')
-		{
-			switch (*++p)
+			structype = driver(format);
+			if (structype)
 			{
-				case 's':
-					num += fun_string(arguments);
-					break;
-				case 'c':
-					num += fun_character(arguments);
-					break;
-				case '%':
-					_putchar('%'), num++;
-					break;
-				case '\0':
-					return (-1);
-				case 'i':
-				case 'd':
-					num += fun_integer(arguments);
-					break;
-				default:
-					_putchar('%'), _putchar(*p), num += 2;
+				q[0] = '%';
+				q[1] = format[1];
+				written += structype(q, pa);
 			}
+			else if (format[1] != '\0')
+			{
+				written += _putchar('%');
+				written += _putchar(format[1]);
+			}
+			else
+			{
+				written += _putchar('%');
+				break;
+			}
+			format += 2;
 		}
 		else
-			_putchar(*p), num++;
+		{
+			written += _putchar(format[0]);
+			format++;
+		}
 	}
-va_end(arguments);
-return (num);
+	_putchar(-2);
+	return (written);
 }
