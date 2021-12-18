@@ -247,12 +247,4 @@ Conversion specifiers to handle: d, i, u, o, x, X
 #
 ### Authors
 
-* [Camilo Bayona Orduz](https://www.camilobayona.com) - *Initial work* - [cbayonao](https://github.com/cbayonao)
-* [Cristiam Camilo Baquero](https://www.camilobaquero.com) - *Initial work* - [camilooob](https://github.com/camilooob)
-
-### Acknowledgments
-
-* Follow the framework
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* [Solomon Ferede](ezezsolomonferede@gmail.com) 
